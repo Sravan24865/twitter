@@ -78,7 +78,7 @@ const authenticationToken = (request, response, next) => {
   let jwtToken;
   const authHeader = request.headers["authorization"];
   if (authHeader !== undefined) {
-    jwtToken = authHeader.aplit(" ")[1];
+    jwtToken = authHeader.split(" ")[1];
   } else {
     response.status(401);
     response.send("Invalid JWT Token");
@@ -364,7 +364,7 @@ app.post("/user/tweets/", authenticationToken, async (request, response) => {
   const currentDate = new Date();
   console.log(currentDate.toISOString().replace("I", " "));
 
-  const postRequestQuery = `insert into tweet(tweet, user_id, date_time) values ("${tweet}, ${getUserId.user_id}, '${currentDate}'`;
+  const postRequestQuery = `insert into tweet(tweet, user_id, date_time) values ('${tweet}', ${getUserId.user_id}, '${currentDate}'`;
 
   const responseResult = await database.run(postRequestQuery);
   const tweet_id = responseResult.lastID;
